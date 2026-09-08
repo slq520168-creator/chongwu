@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#1f6f5b"/>
+<title>优选宠物 · 展示板</title>
+<style>
+:root{
+  --bg:#f6f1ea; --card:#fff; --ink:#1c2421; --muted:#5c6b66;
+  --brand:#1f6f5b; --brand2:#2d9b7a; --accent:#e8a87c; --line:#e6ddd2;
+  --ok:#1f6f5b; --shadow:0 10px 28px rgba(28,36,33,.08);
+  --r:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+  -webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:480px;margin:0 auto;padding:0 14px 96px}
+.hero{
+  position:relative;margin:12px 0 16px;border-radius:22px;overflow:hidden;
+  background:linear-gradient(145deg,#1f6f5b 0%,#2d9b7a 55%,#e8a87c 140%);
+  color:#fff;padding:22px 18px 20px;box-shadow:var(--shadow);min-height:168px}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(255,255,255,.18);
+  padding:5px 10px;border-radius:999px;backdrop-filter:blur(6px)}
+.hero h1{margin:12px 0 6px;font-size:26px;line-height:1.2;letter-spacing:.5px}
+.hero p{margin:0;opacity:.92;font-size:14px;line-height:1.5;max-width:28em}
+.hero .paw{position:absolute;right:-8px;bottom:-18px;font-size:110px;opacity:.12;pointer-events:none}
+.sec{margin:18px 0 10px;display:flex;align-items:end;justify-content:space-between;gap:10px}
+.sec h2{margin:0;font-size:17px}
+.sec span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;box-shadow:0 4px 14px rgba(28,36,33,.04)}
+.card .pic{
+  aspect-ratio:1.15/1;background:
+    radial-gradient(circle at 30% 30%,rgba(232,168,124,.35),transparent 55%),
+    linear-gradient(160deg,#dff3ec,#f8efe6);display:flex;align-items:center;justify-content:center;
+  font-size:42px}
+.card .body{padding:10px 11px 12px}
+.card .body h3{margin:0 0 4px;font-size:14px}
+.card .body p{margin:0;font-size:12px;color:var(--muted);line-height:1.45;min-height:2.8em}
+.card .tag{display:inline-block;margin-top:8px;font-size:11px;color:var(--brand);
+  background:rgba(31,111,91,.1);padding:3px 8px;border-radius:999px}
+.list{display:grid;gap:10px}
+.row{
+  display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:12px;box-shadow:0 4px 14px rgba(28,36,33,.04)}
+.row .ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:rgba(31,111,91,.1);font-size:22px;flex:0 0 auto}
+.row h3{margin:0 0 3px;font-size:14px}
+.row p{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+.contact{
+  margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:16px;box-shadow:var(--shadow)}
+.contact h2{margin:0 0 4px;font-size:17px}
+.contact .sub{margin:0 0 14px;font-size:13px;color:var(--muted)}
+.contact .meta{display:grid;gap:8px;margin-bottom:14px}
+.contact .meta div{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45}
+.contact .meta b{color:var(--brand);min-width:3.2em;font-weight:600}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;
+  border-radius:14px;border:0;font-size:14px;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.soft{background:rgba(31,111,91,.1);color:var(--brand)}
+.btn.full{grid-column:1/-1}
+.btn:active{transform:scale(.98)}
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(246,241,234,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.dock .inner{max-width:480px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:8px}
+.note{margin:14px 2px 0;font-size:11px;color:var(--muted);line-height:1.5;text-align:center}
+.pill{display:inline-flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.pill i{font-style:normal;font-size:11px;background:rgba(255,255,255,.16);padding:4px 8px;border-radius:999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">🐾 优选宠物 · 展示板</div>
+    <h1 id="shopName">暖爪宠物生活馆</h1>
+    <p id="shopTagline">洗护 · 寄养 · 美容 · 健康咨询。先看服务与环境，再一键联系到店。</p>
+    <div class="pill">
+      <i>今日可预约</i><i>到店 / 上门</i><i>猫狗友好</i>
+    </div>
+    <div class="paw" aria-hidden="true">🐾</div>
+  </header>
+
+  <div class="sec"><h2>热门服务</h2><span>示例展示</span></div>
+  <div class="grid" id="services"></div>
+
+  <div class="sec"><h2>到店亮点</h2><span>为什么选我们</span></div>
+  <div class="list" id="highlights"></div>
+
+  <section class="contact" id="contact">
+    <h2>联系我们</h2>
+    <p class="sub">有问题直接点下面按钮，电话 / Telegram / WhatsApp 都会打开对应入口。</p>
+    <div class="meta">
+      <div><b>门店</b><span id="cName">—</span></div>
+      <div><b>地址</b><span id="cAddr">—</span></div>
+      <div><b>时间</b><span id="cHours">—</span></div>
+      <div><b>电话</b><span id="cPhone">—</span></div>
+    </div>
+    <div class="btns">
+      <a class="btn primary" id="btnCall" href="#">📞 打电话</a>
+      <a class="btn soft" id="btnTg" href="#" target="_blank" rel="noopener">✈️ Telegram</a>
+      <a class="btn soft full" id="btnWa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
+    </div>
+  </section>
+  <p class="note">展示板模板 · 联系方式可在页面顶部配置或用链接参数覆盖 · 平台不代收款项</p>
+</div>
+
+<nav class="dock" aria-label="快捷联系">
+  <div class="inner">
+    <a class="btn primary" id="dockCall" href="#">📞 立即联系</a>
+    <a class="btn soft" href="#contact">📍 门店信息</a>
+  </div>
+</nav>
+
+<script>
+/* ===== 门店配置：改这里即可 ===== */
+const CONFIG = {
+  name: '暖爪宠物生活馆',
+  tagline: '洗护 · 寄养 · 美容 · 健康咨询。先看服务与环境，再一键联系到店。',
+  address: '金边 · 示例路 128 号（可改）',
+  hours: '每天 09:00–20:00',
+  phone: '+85500000000',
+  telegram: 'https://t.me/',
+  whatsapp: '+85500000000',
+  services: [
+    {emoji:'🛁', title:'精致洗护', desc:'按体型与毛质护理，含吹干梳毛', tag:'到店'},
+    {emoji:'✂️', title:'造型美容', desc:'修毛整形 / 指甲耳部清洁', tag:'预约'},
+    {emoji:'🏠', title:'安心寄养', desc:'独立笼位 + 日常记录可查', tag:'可过夜'},
+    {emoji:'🩺', title:'健康咨询', desc:'基础观察建议，必要时转诊提醒', tag:'咨询'}
+  ],
+  highlights: [
+    {emoji:'🛡️', title:'环境消毒可见', desc:'每日清洁打卡，寄养区独立通风。'},
+    {emoji:'📸', title:'过程可反馈', desc:'寄养/美容可按约定发进度照片。'},
+    {emoji:'💛', title:'温和操作', desc:'敏感宠物可先短时适应，再正式护理。'}
+  ]
+};
+
+(function applyQueryOverrides(){
+  const q = new URLSearchParams(location.search);
+  const map = {name:'name', tagline:'tagline', address:'address', hours:'hours', phone:'phone', telegram:'telegram', whatsapp:'whatsapp'};
+  Object.keys(map).forEach(k=>{ const v=q.get(k); if(v) CONFIG[map[k]]=v; });
+})();
+
+function waLink(num){
+  const n = String(num||'').replace(/[^\d+]/g,'').replace(/^\+/,'');
+  return n ? ('https://wa.me/'+n) : '#';
+}
+function telLink(num){
+  const n = String(num||'').replace(/[^\d+]/g,'');
+  return n ? ('tel:'+n) : '#';
+}
+
+document.getElementById('shopName').textContent = CONFIG.name;
+document.getElementById('shopTagline').textContent = CONFIG.tagline;
+document.title = CONFIG.name + ' · 优选宠物';
+
+document.getElementById('services').innerHTML = CONFIG.services.map(s=>`
+  <article class="card">
+    <div class="pic">${s.emoji}</div>
+    <div class="body"><h3>${s.title}</h3><p>${s.desc}</p><span class="tag">${s.tag}</span></div>
+  </article>`).join('');
+
+document.getElementById('highlights').innerHTML = CONFIG.highlights.map(h=>`
+  <div class="row"><div class="ico">${h.emoji}</div><div><h3>${h.title}</h3><p>${h.desc}</p></div></div>`).join('');
+
+document.getElementById('cName').textContent = CONFIG.name;
+document.getElementById('cAddr').textContent = CONFIG.address;
+document.getElementById('cHours').textContent = CONFIG.hours;
+document.getElementById('cPhone').textContent = CONFIG.phone;
+
+const call = telLink(CONFIG.phone);
+const tg = CONFIG.telegram || '#';
+const wa = waLink(CONFIG.whatsapp);
+['btnCall','dockCall'].forEach(id=>{ const el=document.getElementById(id); el.href=call; });
+document.getElementById('btnTg').href = tg;
+document.getElementById('btnWa').href = wa;
+</script>
+</body>
+</html>
